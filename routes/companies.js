@@ -11,6 +11,7 @@ const Company = require("../models/company");
 
 const companyNewSchema = require("../schemas/companyNew.json");
 const companyUpdateSchema = require("../schemas/companyUpdate.json");
+const { ExpressError } = require("../expressError");
 
 const router = new express.Router();
 
@@ -52,8 +53,21 @@ router.post("/", ensureLoggedIn, async function (req, res, next) {
 
 router.get("/", async function (req, res, next) {
   try {
+    const {minEmployees=0,maxEmployees=999999999,nameLike} = req.query;
+    if(isNaN(minEmployees)||isNaN(maxEmployees)){
+      throw new ExpressError('Minimum or maximum filter for Employees variable is not a number', 404)
+    }
+    console.log(typeof minEmployees, typeof maxEmployees);
+    let finalList= [];
     const companies = await Company.findAll();
-    return res.json({ companies });
+    companies.forEach(company => {
+      if (company.numEmployees>minEmployees&&
+        company.numEmployees<maxEmployees&&
+        company.name.toLowerCase().includes(nameLike.toLowerCase())){
+        finalList.push(company)
+      }
+    });
+    return res.json({ finalList });
   } catch (err) {
     return next(err);
   }

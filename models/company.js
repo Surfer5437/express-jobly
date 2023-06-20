@@ -61,6 +61,27 @@ class Company {
     return companiesRes.rows;
   }
 
+  static async filtered(handle) {
+    // const companyRes = await db.query(
+    //       `SELECT handle,
+    //               name,
+    //               description,
+    //               num_employees AS "numEmployees",
+    //               logo_url AS "logoUrl"
+    //        FROM companies
+    //        WHERE handle = $1`,
+    //     [handle]);
+
+    // const company = companyRes.rows[0];
+
+    // if (!company) throw new NotFoundError(`No company: ${handle}`);
+
+    // return company;
+    return handle;
+  }
+
+
+
   /** Given a company handle, return data about company.
    *
    * Returns { handle, name, description, numEmployees, logoUrl, jobs }
@@ -68,6 +89,8 @@ class Company {
    *
    * Throws NotFoundError if not found.
    **/
+
+
 
   static async get(handle) {
     const companyRes = await db.query(
