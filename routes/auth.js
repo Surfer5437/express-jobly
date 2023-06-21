@@ -36,7 +36,6 @@ router.post("/token", async function (req, res, next) {
   }
 });
 
-
 /** POST /auth/register:   { user } => { token }
  *
  * user must include { username, password, firstName, lastName, email }
