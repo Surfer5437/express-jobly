@@ -11,6 +11,7 @@ const User = require("../models/user");
 const { createToken } = require("../helpers/tokens");
 const userNewSchema = require("../schemas/userNew.json");
 const userUpdateSchema = require("../schemas/userUpdate.json");
+const { JsonWebTokenError } = require("jsonwebtoken");
 
 const router = express.Router();
 
@@ -25,7 +26,6 @@ const router = express.Router();
  *
  * Authorization required: login
  **/
-
 router.post("/", ensureLoggedIn, async function (req, res, next) {
   try {
     const validator = jsonschema.validate(req.body, userNewSchema);
@@ -49,7 +49,7 @@ router.post("/", ensureLoggedIn, async function (req, res, next) {
  * Authorization required: Administrator login
  **/
 
-router.get("/", ensureAdminLoggedIn, async function (req, res, next) {
+router.get("/", async function (req, res, next) {
   try {
     const users = await User.findAll();
     return res.json({ users });
@@ -112,5 +112,22 @@ router.delete("/:username", ensureAdminLoggedIn, async function (req, res, next)
     return next(err);
   }
 });
+
+router.post("/:username/jobs/:jobId", ensureLoggedIn, async function (req, res, next) {
+  try {
+    
+    if (res.locals.user.username==req.params.username){
+      await User.apply(req.params.username,req.params.jobId)
+      return res.json({ applied: req.params.jobId });
+    }
+    
+  } catch (err) {
+    return next(err);
+  }
+});
+
+
+
+
 
 module.exports = router;

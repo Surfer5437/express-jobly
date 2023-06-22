@@ -142,17 +142,18 @@ static async update(handle, data) {
 
 /** Delete given job from database; returns undefined.
    *
-   * Throws NotFoundError if company not found.
+   * Throws NotFoundError if Job not found.
    **/
 
-static async remove(id) {
+static async remove(title) {
     const result = await db.query(
           `DELETE
            FROM jobs
-           WHERE id = $1
-           RETURNING id`, [id]);
+           WHERE title = $1
+           RETURNING title`, [title]);
     const job = result.rows[0];
 
-    if (!job) throw new NotFoundError(`No job: ${id}`);
+    if (!job) throw new NotFoundError(`No job: ${title}`);
   }
+}
 module.exports = Job;
