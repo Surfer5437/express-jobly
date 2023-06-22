@@ -63,3 +63,14 @@ router.post("/register", async function (req, res, next) {
 
 
 module.exports = router;
+
+
+
+
+// {
+//  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIiLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNjg3MzEzMTcyfQ.6HUheR0RRiX0wEZYwV3HbG-qxHS4dgtLXyxbODJEIRI"
+// } 
+
+// {
+//   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXJuYW1lIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTY4NzQ0NjMwMn0.UaIieTZO8j1AUN_veCLuUEDPImkzuod64HpkD-ZR3-4"
+// }

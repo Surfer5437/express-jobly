@@ -14,7 +14,6 @@ const userUpdateSchema = require("../schemas/userUpdate.json");
 
 const router = express.Router();
 
-
 /** POST / { user }  => { user, token }
  *
  * Adds a new user. This is not the registration endpoint --- instead, this is
@@ -59,7 +58,6 @@ router.get("/", ensureAdminLoggedIn, async function (req, res, next) {
   }
 });
 
-
 /** GET /[username] => { user }
  *
  * Returns { username, firstName, lastName, isAdmin }
@@ -75,7 +73,6 @@ router.get("/:username", ensureAdminLoggedIn, async function (req, res, next) {
     return next(err);
   }
 });
-
 
 /** PATCH /[username] { user } => { user }
  *
